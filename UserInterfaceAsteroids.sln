@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31112.23
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserInterfaceAsteroids", "UserInterfaceAsteroids\UserInterfaceAsteroids.csproj", "{B6DF8C9B-81E2-4283-866B-7F4EAB539809}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AsteroidsLogic", "AsteroidsLogic\AsteroidsLogic.csproj", "{F088156B-D81A-48C7-B9E6-1D31A1E7A42D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B6DF8C9B-81E2-4283-866B-7F4EAB539809}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B6DF8C9B-81E2-4283-866B-7F4EAB539809}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B6DF8C9B-81E2-4283-866B-7F4EAB539809}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B6DF8C9B-81E2-4283-866B-7F4EAB539809}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F088156B-D81A-48C7-B9E6-1D31A1E7A42D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F088156B-D81A-48C7-B9E6-1D31A1E7A42D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F088156B-D81A-48C7-B9E6-1D31A1E7A42D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F088156B-D81A-48C7-B9E6-1D31A1E7A42D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C0448B88-13E6-4946-950E-593F1FEF90EF}
+	EndGlobalSection
+EndGlobal
