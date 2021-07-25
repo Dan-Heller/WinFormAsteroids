@@ -89,5 +89,20 @@
   <ItemGroup>
     <None Include="Resources\PngItem_188897.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\spaceship.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Laser.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\408-4084688_hd-blast-harrier-laser-transparent-background-laser-sprite.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Laser.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\asteroid.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
