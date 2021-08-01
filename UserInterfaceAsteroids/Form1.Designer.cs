@@ -62,9 +62,9 @@ namespace UserInterfaceAsteroids
             // 
             this.lasershot.BackColor = System.Drawing.Color.Transparent;
             this.lasershot.Image = ((System.Drawing.Image)(resources.GetObject("lasershot.Image")));
-            this.lasershot.Location = new System.Drawing.Point(392, 376);
+            this.lasershot.Location = new System.Drawing.Point(412, 375);
             this.lasershot.Name = "lasershot";
-            this.lasershot.Size = new System.Drawing.Size(55, 43);
+            this.lasershot.Size = new System.Drawing.Size(16, 44);
             this.lasershot.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.lasershot.TabIndex = 1;
             this.lasershot.TabStop = false;

@@ -89,7 +89,7 @@ namespace UserInterfaceAsteroids
             Laser.BackColor = Color.Transparent;
             Laser.BackgroundImage = null;
             Laser.SizeMode = PictureBoxSizeMode.StretchImage;
-            Laser.Size = new Size(55, 43);
+            Laser.Size = new Size(14, 44);
             this.Controls.Add(Laser);
             LasersList.Add(Laser);
             
