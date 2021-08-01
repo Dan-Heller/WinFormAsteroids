@@ -30,6 +30,7 @@ namespace UserInterfaceAsteroids
             
             timer.Start();
             System.Windows.Forms.Cursor.Hide();
+            
             LasersList = new List<PictureBox>();
             LaserSound = new SoundPlayer(@"e:\Users\Dan\Desktop\לימודים\Private programming\WinForm Asteroids\UserInterfaceAsteroids\UserInterfaceAsteroids\Resources\LaserSound.wav");
             LasersList = new List<PictureBox>();
@@ -42,6 +43,7 @@ namespace UserInterfaceAsteroids
             Spaceship.Location = P2;
             moveAllLasers();
             moveAllAsteroids();
+            CheckLaserAsteroidIntersect();
             if (tempSHIT % 100 == 0)
             {
                 Asteroid newAsteroid = new Asteroid(AsteroidPicture.Image);
@@ -94,6 +96,26 @@ namespace UserInterfaceAsteroids
             
         }
 
+        private void CheckLaserAsteroidIntersect()
+        {
+
+            foreach (PictureBox Laser in LasersList)
+            {
+                foreach (Asteroid asteroidObject in AsteroidsList)
+                {
+                    if(Laser.Bounds.IntersectsWith(asteroidObject.Bounds))
+                    {
+                        AsteroidsList.Remove(asteroidObject);  //is it the right the to get rid of them?
+                        asteroidObject.Visible = false;
+                        LasersList.Remove(Laser);
+                        Laser.Visible = false;
+                        return;
+                    }
+                }
+            }
+
+        }
+
 
 
 
@@ -139,13 +161,13 @@ namespace UserInterfaceAsteroids
                 this.BackColor = Color.Transparent;
                 this.BackgroundImage = null;
                 this.SizeMode = PictureBoxSizeMode.StretchImage;
-                this.Size = new Size(312, 168);
+                this.Size = new Size(126,116);
                 //this.Controls.Add(asteroid);
 
-                
 
-                
-                
+
+
+
             }
 
             

@@ -121,11 +121,17 @@
   <data name="Spaceship1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Spaceship1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="Laser" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Laser.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="asteroidnew" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\asteroidnew.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="newAsteroid" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\newAsteroid.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="408-4084688_hd-blast-harrier-laser-transparent-background-laser-sprite" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\408-4084688_hd-blast-harrier-laser-transparent-background-laser-sprite.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="canvas" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\canvas.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="PngItem_188897" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\PngItem_188897.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -136,10 +142,19 @@
   <data name="spaceship" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\spaceship.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Laser" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Laser.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="asteroid" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\asteroid.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="canvas" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\canvas.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="newAsteroid2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\newAsteroid.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="newAsteroid1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\newAsteroid.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="newAsteroid3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\newAsteroid.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>
