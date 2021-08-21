@@ -8,6 +8,7 @@ using System.Media;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using AsteroidsLogic;
 
 
 namespace UserInterfaceAsteroids
@@ -17,52 +18,82 @@ namespace UserInterfaceAsteroids
         private Point P2 = new Point();
         private PictureBox Laser;
         
+        private AsteroidsGame Logic = new AsteroidsGame();
         private SoundPlayer LaserSound;
         private List<PictureBox> LasersList;
         private List<Asteroid> AsteroidsList;
+        private List<PictureBox> HeartsBarList;
         private Point tempPoint = new Point();
-        private int tempSHIT = 0;
+        private int intervalsCounter = 0;
+        private int YAngleAdder = 0;
         
         
         public Form1()
         {
             InitializeComponent();
-            
+            this.StartPosition = FormStartPosition.CenterScreen;
             timer.Start();
             System.Windows.Forms.Cursor.Hide();
-            
+            HeartsBarList = new List<PictureBox>();
+            InitializeHearts();
             LasersList = new List<PictureBox>();
             LaserSound = new SoundPlayer(@"e:\Users\Dan\Desktop\לימודים\Private programming\WinForm Asteroids\UserInterfaceAsteroids\UserInterfaceAsteroids\Resources\LaserSound.wav");
-            LasersList = new List<PictureBox>();
+            
+           // LasersList = new List<PictureBox>();
             AsteroidsList = new List<Asteroid>();
-
+            
         }
+
+        
+
 
         private void MainGameTimerEvent(object sender, EventArgs e)
         {
             Spaceship.Location = P2;
             moveAllLasers();
-            moveAllAsteroids();
+            moveAllAsteroids(YAngleAdder);
             CheckLaserAsteroidIntersect();
-            if (tempSHIT % 100 == 0)
+
+            if(intervalsCounter % 5000 == 0) //asteroids speed adder
+            {
+                YAngleAdder++;
+            }
+
+
+            if (intervalsCounter % 20 == 0) //asteroids adder
             {
                 Asteroid newAsteroid = new Asteroid(AsteroidPicture.Image);
                 AsteroidsList.Add(newAsteroid);
                 this.Controls.Add(newAsteroid);
-
+                //newAsteroid.Parent = Spaceship;
+                //newAsteroid.BringToFront();
             }
 
-            
 
-            tempSHIT++;
+            CheckSpaceshipAsteroidsIntersect();
+            //foreach(Asteroid asteroidObject in AsteroidsList)
+            //{
+            //    if(Spaceship.Bounds.IntersectsWith(asteroidObject.Bounds))
+            //    {
+            //        Spaceship.Paint += new PaintEventHandler(frmGame_Paint);
+            //        break;
+            //        //timer.Stop();
+
+            //    }
+            //}
+
+            //Spaceship.BringToFront();
+
+
+            intervalsCounter++;
         }
 
-        private void moveAllAsteroids()
+        private void moveAllAsteroids(int YAngleAdder)
         {
             foreach (Asteroid asteroidObject in AsteroidsList)
             {
-                tempPoint.X = asteroidObject.Location.X;
-                tempPoint.Y = asteroidObject.Location.Y + 2 ;
+                tempPoint.X = asteroidObject.Location.X + asteroidObject.GetXangle ;
+                tempPoint.Y = asteroidObject.Location.Y + asteroidObject.GetYangle + YAngleAdder;
                 asteroidObject.Location = tempPoint;
             }
         }
@@ -96,6 +127,64 @@ namespace UserInterfaceAsteroids
             
         }
 
+        private void InitializeHearts()
+        {
+            for(int i = 0; i < 5; i++)
+            {
+                PictureBox BarHeart = createBarHeart();
+                BarHeart.Location = new Point(12 + (this.BarHeart.Size.Width * (i)), 12);
+            }
+        }
+
+        private PictureBox createBarHeart()
+        {
+            PictureBox barHeartPictureBox = new PictureBox();
+            Bitmap tempBitmap = new Bitmap(BarHeart.Image);
+            barHeartPictureBox.Image = tempBitmap;
+
+            barHeartPictureBox.Visible = true;
+            barHeartPictureBox.BackColor = Color.Transparent;
+            barHeartPictureBox.BackgroundImage = null;
+            barHeartPictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
+            barHeartPictureBox.Size = BarHeart.Size;
+            
+            this.Controls.Add(barHeartPictureBox);
+            HeartsBarList.Add(barHeartPictureBox);
+
+            return barHeartPictureBox;
+        }
+
+        private void CheckSpaceshipAsteroidsIntersect()
+        {
+         
+                foreach (Asteroid asteroidObject in AsteroidsList)
+                {
+                    if (Spaceship.Bounds.IntersectsWith(asteroidObject.Bounds))
+                    {
+                        AsteroidsList.Remove(asteroidObject);
+                        asteroidObject.Visible = false;
+                        HeartLost();
+                        
+                        if(Logic.GetLives == 0)
+                        {
+                            timer.Stop();
+                            return;
+                        }
+                        return;
+                    }
+                }
+            
+
+        }
+
+        private void HeartLost()
+        {
+            Logic.GetLives--;
+            HeartsBarList[HeartsBarList.Count - 1].Visible = false;
+            HeartsBarList.RemoveAt(HeartsBarList.Count-1);
+            
+        }
+
         private void CheckLaserAsteroidIntersect()
         {
 
@@ -116,6 +205,19 @@ namespace UserInterfaceAsteroids
 
         }
 
+        // https:///stackoverflow.com/questions/19910172/how-to-make-picturebox-transparent
+        private void frmGame_Paint(object sender, PaintEventArgs e)
+        {
+            DoubleBuffered = true;
+            for (int i = 0; i < Controls.Count; i++)
+                if (Controls[i].GetType() == typeof(PictureBox))
+                {
+                    var p = Controls[i] as PictureBox;
+                    p.Visible = false;
+                    e.Graphics.DrawImage(p.Image, p.Left, p.Top, p.Width, p.Height);
+                }
+        }
+
 
 
 
@@ -134,23 +236,22 @@ namespace UserInterfaceAsteroids
             LaserSound.Play();
         }
 
-        private void AsteroidBeenHit(object sender, MouseEventArgs e)
-        {
-
-        }
+       
 
 
         public class Asteroid : PictureBox
         {
 
             private Random RandomNum;
+            private  int Xangle;
+            private  int Yangle;
 
             public event Action<Asteroid> HitByLaserInvoker;
 
             public Asteroid(Image AsteroidImage)
             {
                 RandomNum = new Random();
-                int RandomX = RandomNum.Next(50, 900);
+                int RandomX = RandomNum.Next(200, 800);
                 //PictureBox asteroid = new PictureBox();
                 Bitmap tempBitmap = new Bitmap(AsteroidImage);
                 this.Image = tempBitmap;
@@ -161,13 +262,28 @@ namespace UserInterfaceAsteroids
                 this.BackColor = Color.Transparent;
                 this.BackgroundImage = null;
                 this.SizeMode = PictureBoxSizeMode.StretchImage;
-                this.Size = new Size(126,116);
-                //this.Controls.Add(asteroid);
+                this.Size = new Size(102,87);
+               // this.Controls.Add(this);
 
+               Xangle = RandomNum.Next(-3,3);
+               Yangle = 3;
+               
+               
+            }
 
-
-
-
+            public int GetXangle
+            {
+                get
+                {
+                    return this.Xangle;
+                }
+            }
+            public int GetYangle
+            {
+                get
+                {
+                    return  this.Yangle;
+                }
             }
 
             

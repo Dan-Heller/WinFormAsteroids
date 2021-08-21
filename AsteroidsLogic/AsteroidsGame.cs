@@ -8,15 +8,27 @@ namespace AsteroidsLogic
 {
     public class AsteroidsGame
     {
-        private readonly Random r_RandomNumber;
+        //private readonly Random r_RandomNumber;
         private int m_LivesLeft;
         private int m_Score;
 
-        private AsteroidsGame()
+        public AsteroidsGame()
         {
             m_LivesLeft = 5;
             m_Score = 0;
-            r_RandomNumber = new Random();
+            //r_RandomNumber = new Random();
+        }
+
+        public int GetLives
+        {
+            get
+            {
+                return this.m_LivesLeft;
+            }
+            set
+            {
+                this.m_LivesLeft = value;
+            }
         }
 
     }

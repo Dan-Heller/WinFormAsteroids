@@ -35,9 +35,11 @@ namespace UserInterfaceAsteroids
             this.timer = new System.Windows.Forms.Timer(this.components);
             this.lasershot = new System.Windows.Forms.PictureBox();
             this.AsteroidPicture = new System.Windows.Forms.PictureBox();
+            this.BarHeart = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.Spaceship)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.lasershot)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.AsteroidPicture)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.BarHeart)).BeginInit();
             this.SuspendLayout();
             // 
             // Spaceship
@@ -74,13 +76,26 @@ namespace UserInterfaceAsteroids
             // 
             this.AsteroidPicture.BackColor = System.Drawing.Color.Transparent;
             this.AsteroidPicture.Image = ((System.Drawing.Image)(resources.GetObject("AsteroidPicture.Image")));
-            this.AsteroidPicture.Location = new System.Drawing.Point(92, 12);
+            this.AsteroidPicture.Location = new System.Drawing.Point(36, 417);
             this.AsteroidPicture.Name = "AsteroidPicture";
-            this.AsteroidPicture.Size = new System.Drawing.Size(126, 116);
+            this.AsteroidPicture.Size = new System.Drawing.Size(102, 87);
             this.AsteroidPicture.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.AsteroidPicture.TabIndex = 2;
             this.AsteroidPicture.TabStop = false;
             this.AsteroidPicture.Visible = false;
+            // 
+            // BarHeart
+            // 
+            this.BarHeart.BackColor = System.Drawing.Color.Transparent;
+            this.BarHeart.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.BarHeart.Image = global::UserInterfaceAsteroids.Properties.Resources.heart1;
+            this.BarHeart.Location = new System.Drawing.Point(12, 12);
+            this.BarHeart.Name = "BarHeart";
+            this.BarHeart.Size = new System.Drawing.Size(41, 39);
+            this.BarHeart.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.BarHeart.TabIndex = 3;
+            this.BarHeart.TabStop = false;
+            this.BarHeart.Visible = false;
             // 
             // Form1
             // 
@@ -89,7 +104,8 @@ namespace UserInterfaceAsteroids
             this.BackColor = System.Drawing.Color.HotPink;
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.ClientSize = new System.Drawing.Size(900, 619);
+            this.ClientSize = new System.Drawing.Size(1084, 721);
+            this.Controls.Add(this.BarHeart);
             this.Controls.Add(this.AsteroidPicture);
             this.Controls.Add(this.lasershot);
             this.Controls.Add(this.Spaceship);
@@ -100,6 +116,7 @@ namespace UserInterfaceAsteroids
             ((System.ComponentModel.ISupportInitialize)(this.Spaceship)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.lasershot)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.AsteroidPicture)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.BarHeart)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -110,6 +127,7 @@ namespace UserInterfaceAsteroids
         private System.Windows.Forms.Timer timer;
         private System.Windows.Forms.PictureBox lasershot;
         private System.Windows.Forms.PictureBox AsteroidPicture;
+        private System.Windows.Forms.PictureBox BarHeart;
     }
 }
 
