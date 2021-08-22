@@ -31,5 +31,17 @@ namespace AsteroidsLogic
             }
         }
 
+        public int GetScore
+        {
+            get
+            {
+                return this.m_Score;
+            }
+            set
+            {
+                this.m_Score = value;
+            }
+        }
+
     }
 }

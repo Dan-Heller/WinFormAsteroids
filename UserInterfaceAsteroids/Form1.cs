@@ -17,8 +17,9 @@ namespace UserInterfaceAsteroids
     {
         private Point P2 = new Point();
         private PictureBox Laser;
-        
-        private AsteroidsGame Logic = new AsteroidsGame();
+        private AsteroidsGame Logic;
+
+
         private SoundPlayer LaserSound;
         private List<PictureBox> LasersList;
         private List<Asteroid> AsteroidsList;
@@ -28,20 +29,31 @@ namespace UserInterfaceAsteroids
         private int YAngleAdder = 0;
         
         
-        public Form1()
+        public Form1(AsteroidsGame LogicReference)
         {
             InitializeComponent();
             this.StartPosition = FormStartPosition.CenterScreen;
+            this.MinimizeBox = false;
+            this.MaximizeBox = false;
             timer.Start();
             System.Windows.Forms.Cursor.Hide();
             HeartsBarList = new List<PictureBox>();
             InitializeHearts();
             LasersList = new List<PictureBox>();
             LaserSound = new SoundPlayer(@"e:\Users\Dan\Desktop\לימודים\Private programming\WinForm Asteroids\UserInterfaceAsteroids\UserInterfaceAsteroids\Resources\LaserSound.wav");
+
+            Logic = LogicReference;
             
-           // LasersList = new List<PictureBox>();
+
+            // LasersList = new List<PictureBox>();
             AsteroidsList = new List<Asteroid>();
-            
+
+            ///https:///stackoverflow.com/questions/10449090/how-to-make-image-move-smoothly-with-c-sharp
+            SetStyle(ControlStyles.ResizeRedraw, true);
+            SetStyle(ControlStyles.UserPaint, true);
+            SetStyle(ControlStyles.AllPaintingInWmPaint, true);
+            SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
+
         }
 
         
@@ -49,6 +61,12 @@ namespace UserInterfaceAsteroids
 
         private void MainGameTimerEvent(object sender, EventArgs e)
         {
+            Point mouseLocation = MousePosition;
+            P2 = PointToClient(mouseLocation);
+            P2.X -= (Spaceship.Width) / 2;
+            
+            P2.Y -= (Spaceship.Height) / 2;
+
             Spaceship.Location = P2;
             moveAllLasers();
             moveAllAsteroids(YAngleAdder);
@@ -56,7 +74,7 @@ namespace UserInterfaceAsteroids
 
             if(intervalsCounter % 5000 == 0) //asteroids speed adder
             {
-                YAngleAdder++;
+                YAngleAdder+=2;
             }
 
 
@@ -71,6 +89,11 @@ namespace UserInterfaceAsteroids
 
 
             CheckSpaceshipAsteroidsIntersect();
+
+            if(CheckIfGameOver())
+            {
+                this.Close();
+            }
             //foreach(Asteroid asteroidObject in AsteroidsList)
             //{
             //    if(Spaceship.Bounds.IntersectsWith(asteroidObject.Bounds))
@@ -86,6 +109,11 @@ namespace UserInterfaceAsteroids
 
 
             intervalsCounter++;
+        }
+
+        bool CheckIfGameOver()
+        {
+            return (Logic.GetLives == 0);
         }
 
         private void moveAllAsteroids(int YAngleAdder)
@@ -115,7 +143,7 @@ namespace UserInterfaceAsteroids
             Laser.Image = tempBitmap;
 
             //Point LaserLocation = new Point(Spaceship.Location.X + (Spaceship.Width / 2) -25 , Spaceship.Location.Y-40);
-            Laser.Location = new Point(Spaceship.Location.X + (Spaceship.Width / 2) -25 , Spaceship.Location.Y-40);
+            Laser.Location = new Point(Spaceship.Location.X + (Spaceship.Width / 2) -7 , Spaceship.Location.Y-40);
             Laser.Visible = true;
             Laser.BackColor = Color.Transparent;
             Laser.BackgroundImage = null;
@@ -198,6 +226,7 @@ namespace UserInterfaceAsteroids
                         asteroidObject.Visible = false;
                         LasersList.Remove(Laser);
                         Laser.Visible = false;
+                        Logic.GetScore++;
                         return;
                     }
                 }
@@ -222,13 +251,13 @@ namespace UserInterfaceAsteroids
 
 
 
-        private void MouseMoveEvent(object sender, MouseEventArgs e)
-        {
-            Point mouseLocation = MousePosition;
-            P2 =  PointToClient(mouseLocation);
-            P2.X -= (Spaceship.Width)/2;
-            P2.Y -= (Spaceship.Height) / 2;
-        }
+        //private void MouseMoveEvent(object sender, MouseEventArgs e)
+        //{
+        //    Point mouseLocation = MousePosition;
+        //    P2 =  PointToClient(mouseLocation);
+        //    P2.X -= (Spaceship.Width)/2;
+        //    P2.Y -= (Spaceship.Height) / 2;
+        //}
 
         private void Spaceship_Click(object sender, EventArgs e)
         {

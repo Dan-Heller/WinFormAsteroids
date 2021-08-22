@@ -110,9 +110,9 @@ namespace UserInterfaceAsteroids
             this.Controls.Add(this.lasershot);
             this.Controls.Add(this.Spaceship);
             this.DoubleBuffered = true;
+            this.MaximizeBox = false;
             this.Name = "Form1";
             this.Text = "Form1";
-            this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.MouseMoveEvent);
             ((System.ComponentModel.ISupportInitialize)(this.Spaceship)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.lasershot)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.AsteroidPicture)).EndInit();
