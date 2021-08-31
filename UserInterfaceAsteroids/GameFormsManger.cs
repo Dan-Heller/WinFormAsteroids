@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Documents;
+using System.Windows.Forms;
 using AsteroidsLogic;
 
 namespace UserInterfaceAsteroids
@@ -17,19 +18,27 @@ namespace UserInterfaceAsteroids
 
        public GameFormsManger()
        {
-           gameForm = new Form1(Logic);
-           
-            Run();
+           Run();
        }
 
        private void Run()
        {
            startForm.ShowDialog();
-           gameForm.ShowDialog();
-
-           EndForm = new GameOverForm(Logic);
-           EndForm.ShowDialog();
+           do
+           {
+               gameForm = new Form1(Logic);
+                gameForm.ShowDialog();
+                if(gameForm.IsClosedByUser)
+                {
+                    break;
+                }
+               EndForm = new GameOverForm(Logic);
+               EndForm.ShowDialog();
+               Logic.Reset();
+           }
+           while(EndForm.GetPressedKey == Keys.Enter);
        }
 
+      
     }
 }

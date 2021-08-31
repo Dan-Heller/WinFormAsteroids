@@ -36,6 +36,8 @@ namespace UserInterfaceAsteroids
             this.lasershot = new System.Windows.Forms.PictureBox();
             this.AsteroidPicture = new System.Windows.Forms.PictureBox();
             this.BarHeart = new System.Windows.Forms.PictureBox();
+            this.Score = new System.Windows.Forms.TextBox();
+            this.Countdown = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.Spaceship)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.lasershot)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.AsteroidPicture)).BeginInit();
@@ -97,6 +99,40 @@ namespace UserInterfaceAsteroids
             this.BarHeart.TabStop = false;
             this.BarHeart.Visible = false;
             // 
+            // Score
+            // 
+            this.Score.BackColor = System.Drawing.SystemColors.MenuText;
+            this.Score.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.Score.Enabled = false;
+            this.Score.Font = new System.Drawing.Font("Showcard Gothic", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Score.ForeColor = System.Drawing.Color.Purple;
+            this.Score.Location = new System.Drawing.Point(765, 12);
+            this.Score.Name = "Score";
+            this.Score.ReadOnly = true;
+            this.Score.Size = new System.Drawing.Size(278, 30);
+            this.Score.TabIndex = 4;
+            this.Score.Text = "Your Score: ";
+            this.Score.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.Score.Visible = false;
+            this.Score.WordWrap = false;
+            // 
+            // Countdown
+            // 
+            this.Countdown.BackColor = System.Drawing.SystemColors.MenuText;
+            this.Countdown.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.Countdown.Enabled = false;
+            this.Countdown.Font = new System.Drawing.Font("Showcard Gothic", 72F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Countdown.ForeColor = System.Drawing.Color.Purple;
+            this.Countdown.Location = new System.Drawing.Point(428, 209);
+            this.Countdown.Name = "Countdown";
+            this.Countdown.ReadOnly = true;
+            this.Countdown.Size = new System.Drawing.Size(167, 119);
+            this.Countdown.TabIndex = 5;
+            this.Countdown.Text = "3";
+            this.Countdown.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.Countdown.Visible = false;
+            this.Countdown.WordWrap = false;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -105,6 +141,8 @@ namespace UserInterfaceAsteroids
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(1084, 721);
+            this.Controls.Add(this.Countdown);
+            this.Controls.Add(this.Score);
             this.Controls.Add(this.BarHeart);
             this.Controls.Add(this.AsteroidPicture);
             this.Controls.Add(this.lasershot);
@@ -118,6 +156,7 @@ namespace UserInterfaceAsteroids
             ((System.ComponentModel.ISupportInitialize)(this.AsteroidPicture)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.BarHeart)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -128,6 +167,8 @@ namespace UserInterfaceAsteroids
         private System.Windows.Forms.PictureBox lasershot;
         private System.Windows.Forms.PictureBox AsteroidPicture;
         private System.Windows.Forms.PictureBox BarHeart;
+        private System.Windows.Forms.TextBox Score;
+        private System.Windows.Forms.TextBox Countdown;
     }
 }
 

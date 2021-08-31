@@ -31,6 +31,7 @@ namespace UserInterfaceAsteroids
         {
             this.GameOver = new System.Windows.Forms.TextBox();
             this.Score = new System.Windows.Forms.TextBox();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // GameOver
@@ -56,7 +57,7 @@ namespace UserInterfaceAsteroids
             this.Score.Enabled = false;
             this.Score.Font = new System.Drawing.Font("Showcard Gothic", 48F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Score.ForeColor = System.Drawing.Color.Purple;
-            this.Score.Location = new System.Drawing.Point(84, 325);
+            this.Score.Location = new System.Drawing.Point(177, 325);
             this.Score.Name = "Score";
             this.Score.ReadOnly = true;
             this.Score.Size = new System.Drawing.Size(732, 80);
@@ -66,12 +67,30 @@ namespace UserInterfaceAsteroids
             this.Score.Visible = false;
             this.Score.WordWrap = false;
             // 
+            // textBox1
+            // 
+            this.textBox1.BackColor = System.Drawing.SystemColors.MenuText;
+            this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBox1.Enabled = false;
+            this.textBox1.Font = new System.Drawing.Font("Showcard Gothic", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox1.ForeColor = System.Drawing.Color.Purple;
+            this.textBox1.Location = new System.Drawing.Point(166, 449);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.ReadOnly = true;
+            this.textBox1.Size = new System.Drawing.Size(732, 26);
+            this.textBox1.TabIndex = 4;
+            this.textBox1.Text = "Press Enter to play again";
+            this.textBox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.textBox1.Visible = false;
+            this.textBox1.WordWrap = false;
+            // 
             // GameOverForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = global::UserInterfaceAsteroids.Properties.Resources.canvas;
             this.ClientSize = new System.Drawing.Size(1084, 731);
+            this.Controls.Add(this.textBox1);
             this.Controls.Add(this.Score);
             this.Controls.Add(this.GameOver);
             this.Name = "GameOverForm";
@@ -85,5 +104,6 @@ namespace UserInterfaceAsteroids
         #endregion
         private System.Windows.Forms.TextBox GameOver;
         private System.Windows.Forms.TextBox Score;
+        private System.Windows.Forms.TextBox textBox1;
     }
 }

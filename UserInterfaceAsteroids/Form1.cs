@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Media;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using AsteroidsLogic;
@@ -18,8 +19,8 @@ namespace UserInterfaceAsteroids
         private Point P2 = new Point();
         private PictureBox Laser;
         private AsteroidsGame Logic;
-
-
+        private TextBox ScoreDisplay;
+        private String ScoreString;
         private SoundPlayer LaserSound;
         private List<PictureBox> LasersList;
         private List<Asteroid> AsteroidsList;
@@ -27,6 +28,9 @@ namespace UserInterfaceAsteroids
         private Point tempPoint = new Point();
         private int intervalsCounter = 0;
         private int YAngleAdder = 0;
+        private bool UserClosed = false;
+        private bool GameOn = false;
+        private int lastScoreCheckPoint = 0;
         
         
         public Form1(AsteroidsGame LogicReference)
@@ -41,10 +45,11 @@ namespace UserInterfaceAsteroids
             InitializeHearts();
             LasersList = new List<PictureBox>();
             LaserSound = new SoundPlayer(@"e:\Users\Dan\Desktop\לימודים\Private programming\WinForm Asteroids\UserInterfaceAsteroids\UserInterfaceAsteroids\Resources\LaserSound.wav");
-
+            this.FormClosing += new FormClosingEventHandler(Form1_FormClosing);
             Logic = LogicReference;
             
-
+            InitializeScoreDisplay();
+           // timer.Interval = 1;
             // LasersList = new List<PictureBox>();
             AsteroidsList = new List<Asteroid>();
 
@@ -54,27 +59,93 @@ namespace UserInterfaceAsteroids
             SetStyle(ControlStyles.AllPaintingInWmPaint, true);
             SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
 
+            this.Controls.Add(Countdown);
         }
 
-        
+        private void CountdownAnimation()
+        {
+            Countdown.Visible = true;
+            if(intervalsCounter >= 0 && intervalsCounter < 60)
+            {
+                Countdown.Text = "3";
+            }
+            else if (intervalsCounter >= 0 && intervalsCounter < 120)
+            {
+                Countdown.Text = "2";
+            }
+            else if (intervalsCounter >= 0 && intervalsCounter < 180)
+            {
+                Countdown.Text = "1";
+            }
+            else
+            {
+                Countdown.Visible = false;
+            }
+            
+        }
+
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+
+            if(!CheckIfGameOver())  // then user closing reason wasnt good, it retured true when gameover accured
+            {
+                UserClosed = true;
+            }
+        }
+
+        public bool IsClosedByUser
+        {
+            get
+            {
+                return UserClosed;
+            }
+        }
+
+        private void InitializeScoreDisplay()
+        {
+            ScoreDisplay = new TextBox();
+            ScoreString = ("Your Score: " + Logic.GetScore);
+            ScoreDisplay.Text = ScoreString;
+            ScoreDisplay.Font = Score.Font;
+            ScoreDisplay.Size = Score.Size;
+            ScoreDisplay.Location = Score.Location;
+            ScoreDisplay.ForeColor = Score.ForeColor;
+            ScoreDisplay.Visible = true;
+            ScoreDisplay.Enabled = false;
+            ScoreDisplay.BackColor = Score.BackColor;
+            ScoreDisplay.BorderStyle = BorderStyle.None;
+            this.Controls.Add(ScoreDisplay);
+        }
 
 
         private void MainGameTimerEvent(object sender, EventArgs e)
         {
+            if(intervalsCounter <= 180)
+            {
+                CountdownAnimation();
+                intervalsCounter++;
+                return;
+            }
+
+
+            UpdateScore();
+           
+            //to order
             Point mouseLocation = MousePosition;
             P2 = PointToClient(mouseLocation);
             P2.X -= (Spaceship.Width) / 2;
-            
             P2.Y -= (Spaceship.Height) / 2;
-
             Spaceship.Location = P2;
+
             moveAllLasers();
             moveAllAsteroids(YAngleAdder);
             CheckLaserAsteroidIntersect();
 
-            if(intervalsCounter % 5000 == 0) //asteroids speed adder
+            //if(intervalsCounter % 5000 == 0) //asteroids speed adder
+            if(Logic.GetScore % 10 == 0 && Logic.GetScore != lastScoreCheckPoint)
             {
-                YAngleAdder+=2;
+                YAngleAdder+=1;
+                lastScoreCheckPoint = Logic.GetScore;
             }
 
 
@@ -83,6 +154,7 @@ namespace UserInterfaceAsteroids
                 Asteroid newAsteroid = new Asteroid(AsteroidPicture.Image);
                 AsteroidsList.Add(newAsteroid);
                 this.Controls.Add(newAsteroid);
+                newAsteroid.AsteroidPassedTheSpaceshipInvoker += new Action<Asteroid>(AsteroidPassedScreen);
                 //newAsteroid.Parent = Spaceship;
                 //newAsteroid.BringToFront();
             }
@@ -111,6 +183,14 @@ namespace UserInterfaceAsteroids
             intervalsCounter++;
         }
 
+        private void UpdateScore()
+        {
+            ScoreString = ("Your Score: " + Logic.GetScore);
+            ScoreDisplay.Text = ScoreString;
+        }
+
+
+
         bool CheckIfGameOver()
         {
             return (Logic.GetLives == 0);
@@ -118,11 +198,13 @@ namespace UserInterfaceAsteroids
 
         private void moveAllAsteroids(int YAngleAdder)
         {
-            foreach (Asteroid asteroidObject in AsteroidsList)
+            //foreach (Asteroid asteroidObject in AsteroidsList)
+            for (int i = 0 ; i < AsteroidsList.Count ; i++)
             {
-                tempPoint.X = asteroidObject.Location.X + asteroidObject.GetXangle ;
-                tempPoint.Y = asteroidObject.Location.Y + asteroidObject.GetYangle + YAngleAdder;
-                asteroidObject.Location = tempPoint;
+                tempPoint.X = AsteroidsList[i].Location.X + AsteroidsList[i].GetXangle ;
+                tempPoint.Y = AsteroidsList[i].Location.Y + AsteroidsList[i].GetYangle + YAngleAdder;
+                AsteroidsList[i].Location = tempPoint;
+                AsteroidsList[i].AsteriodMoved(this.Height); //will check if asteroid passed the screen for deletion.
             }
         }
 
@@ -259,6 +341,13 @@ namespace UserInterfaceAsteroids
         //    P2.Y -= (Spaceship.Height) / 2;
         //}
 
+        private void AsteroidPassedScreen(Asteroid asteroid)
+        {
+            AsteroidsList.Remove(asteroid);
+            asteroid.Visible = false;
+        }
+
+
         private void Spaceship_Click(object sender, EventArgs e)
         {
             CreateLaserPictureBox();
@@ -276,6 +365,8 @@ namespace UserInterfaceAsteroids
             private  int Yangle;
 
             public event Action<Asteroid> HitByLaserInvoker;
+
+            public event Action<Asteroid> AsteroidPassedTheSpaceshipInvoker;
 
             public Asteroid(Image AsteroidImage)
             {
@@ -315,7 +406,27 @@ namespace UserInterfaceAsteroids
                 }
             }
 
-            
+            public bool AsteriodMoved(int ScreenHeight)
+            {
+                if(this.Location.Y > ScreenHeight + 200)
+                {
+                    AsteroidPassedScreen();
+                    return true;
+                }
+
+                return false;
+            }
+
+            protected virtual void AsteroidPassedScreen()
+            {
+                if (AsteroidPassedTheSpaceshipInvoker != null)
+                {
+                    AsteroidPassedTheSpaceshipInvoker.Invoke(this);
+                }
+            }
+
+
+
         }
 
 

@@ -19,6 +19,12 @@ namespace AsteroidsLogic
             //r_RandomNumber = new Random();
         }
 
+        public void Reset()
+        {
+            m_LivesLeft = 5;
+            m_Score = 0;
+        }
+
         public int GetLives
         {
             get

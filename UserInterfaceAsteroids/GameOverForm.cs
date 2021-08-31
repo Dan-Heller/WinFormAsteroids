@@ -15,7 +15,7 @@ namespace UserInterfaceAsteroids
     {
         private TextBox GameOverTEXT = new CustomTextBox();
         private TextBox ScoreDisplay = new TextBox();
-        
+        private Keys PressedKey;
 
         public GameOverForm(AsteroidsGame LogicReference)
         {
@@ -23,7 +23,7 @@ namespace UserInterfaceAsteroids
             this.StartPosition = FormStartPosition.CenterScreen;
             //SetGameOverText();
             ShowScore(LogicReference.GetScore);
-
+            this.KeyDown += new KeyEventHandler(KeyPressed);
         }
 
         private void SetGameOverText()
@@ -35,6 +35,12 @@ namespace UserInterfaceAsteroids
             GameOverTEXT.ForeColor = GameOver.ForeColor;
             GameOverTEXT.Visible = true;
             this.Controls.Add(GameOverTEXT);
+        }
+
+        private void KeyPressed(object sender, KeyEventArgs e)
+        {
+            PressedKey = e.KeyCode;
+            this.Close();
         }
 
         private void ShowScore(int ScoreValue)
@@ -62,12 +68,16 @@ namespace UserInterfaceAsteroids
                 this.BackColor = Color.Transparent;
 
             }
-
-
-
-
         }
 
+        public Keys GetPressedKey
+        {
+            get
+            {
+                return this.PressedKey;
+            }
+        }
 
+      
     }
 }
