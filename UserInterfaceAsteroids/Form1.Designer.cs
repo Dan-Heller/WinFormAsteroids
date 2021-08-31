@@ -38,10 +38,12 @@ namespace UserInterfaceAsteroids
             this.BarHeart = new System.Windows.Forms.PictureBox();
             this.Score = new System.Windows.Forms.TextBox();
             this.Countdown = new System.Windows.Forms.TextBox();
+            this.collectableHeart = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.Spaceship)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.lasershot)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.AsteroidPicture)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.BarHeart)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.collectableHeart)).BeginInit();
             this.SuspendLayout();
             // 
             // Spaceship
@@ -133,6 +135,19 @@ namespace UserInterfaceAsteroids
             this.Countdown.Visible = false;
             this.Countdown.WordWrap = false;
             // 
+            // collectableHeart
+            // 
+            this.collectableHeart.BackColor = System.Drawing.Color.Transparent;
+            this.collectableHeart.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.collectableHeart.Image = global::UserInterfaceAsteroids.Properties.Resources.heart1;
+            this.collectableHeart.Location = new System.Drawing.Point(344, 263);
+            this.collectableHeart.Name = "collectableHeart";
+            this.collectableHeart.Size = new System.Drawing.Size(27, 26);
+            this.collectableHeart.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.collectableHeart.TabIndex = 6;
+            this.collectableHeart.TabStop = false;
+            this.collectableHeart.Visible = false;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -141,6 +156,7 @@ namespace UserInterfaceAsteroids
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(1084, 721);
+            this.Controls.Add(this.collectableHeart);
             this.Controls.Add(this.Countdown);
             this.Controls.Add(this.Score);
             this.Controls.Add(this.BarHeart);
@@ -155,6 +171,7 @@ namespace UserInterfaceAsteroids
             ((System.ComponentModel.ISupportInitialize)(this.lasershot)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.AsteroidPicture)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.BarHeart)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.collectableHeart)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -169,6 +186,7 @@ namespace UserInterfaceAsteroids
         private System.Windows.Forms.PictureBox BarHeart;
         private System.Windows.Forms.TextBox Score;
         private System.Windows.Forms.TextBox Countdown;
+        private System.Windows.Forms.PictureBox collectableHeart;
     }
 }
 

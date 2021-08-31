@@ -25,6 +25,7 @@ namespace UserInterfaceAsteroids
         private List<PictureBox> LasersList;
         private List<Asteroid> AsteroidsList;
         private List<PictureBox> HeartsBarList;
+        private List<PictureBox> CollectableHeartsList;
         private Point tempPoint = new Point();
         private int intervalsCounter = 0;
         private int YAngleAdder = 0;
@@ -32,7 +33,12 @@ namespace UserInterfaceAsteroids
         private bool GameOn = false;
         private int lastScoreCheckPoint = 0;
         
-        
+
+        private Random RandomNum = new Random();
+        private int RandomX;
+        private int RandomY;
+
+
         public Form1(AsteroidsGame LogicReference)
         {
             InitializeComponent();
@@ -47,7 +53,7 @@ namespace UserInterfaceAsteroids
             LaserSound = new SoundPlayer(@"e:\Users\Dan\Desktop\לימודים\Private programming\WinForm Asteroids\UserInterfaceAsteroids\UserInterfaceAsteroids\Resources\LaserSound.wav");
             this.FormClosing += new FormClosingEventHandler(Form1_FormClosing);
             Logic = LogicReference;
-            
+            CollectableHeartsList = new List<PictureBox>();
             InitializeScoreDisplay();
            // timer.Interval = 1;
             // LasersList = new List<PictureBox>();
@@ -127,6 +133,12 @@ namespace UserInterfaceAsteroids
                 return;
             }
 
+            if(intervalsCounter % 300 == 0 && CollectableHeartsList.Count <= 3 && Logic.GetLives < 6)//conditions for new heart creation
+            {
+                AddCollectableHeart();
+            }
+
+
 
             UpdateScore();
            
@@ -140,7 +152,7 @@ namespace UserInterfaceAsteroids
             moveAllLasers();
             moveAllAsteroids(YAngleAdder);
             CheckLaserAsteroidIntersect();
-
+            CheckSpaceshipAndHeartIntersect();
             //if(intervalsCounter % 5000 == 0) //asteroids speed adder
             if(Logic.GetScore % 10 == 0 && Logic.GetScore != lastScoreCheckPoint)
             {
@@ -208,6 +220,15 @@ namespace UserInterfaceAsteroids
             }
         }
 
+        private void AddCollectableHeart()
+        {
+            PictureBox newCollectableHeart = createPictureBox(collectableHeart, CollectableHeartsList);
+            Point point = new Point();
+            point.X = RandomNum.Next(100, this.Height - 100);
+            point.Y = RandomNum.Next(100, this.Width - 100);
+            newCollectableHeart.Location = point;
+        }
+
         private void moveAllLasers()
         {
             foreach(PictureBox Laser in LasersList)
@@ -215,10 +236,23 @@ namespace UserInterfaceAsteroids
                 tempPoint.X = Laser.Location.X;
                 tempPoint.Y = Laser.Location.Y - 10;
                 Laser.Location = tempPoint;
+                if (checkedIfLaserPassed(Laser))//if passed screen remove from list
+                {
+                    LasersList.Remove(Laser);
+                    Laser.Visible = false;
+                    return; //i must return although not all moved (cant remove from list otherwise)
+                }
             }
+            
         }
 
-        private void CreateLaserPictureBox()
+        private bool checkedIfLaserPassed(PictureBox laser)
+        {
+            return (laser.Location.Y < -100);
+        }
+    
+
+    private void CreateLaserPictureBox()
         {
             PictureBox Laser = new PictureBox();
             Bitmap tempBitmap = new Bitmap(lasershot.Image);
@@ -233,8 +267,6 @@ namespace UserInterfaceAsteroids
             Laser.Size = new Size(14, 44);
             this.Controls.Add(Laser);
             LasersList.Add(Laser);
-            
-            
         }
 
         private void InitializeHearts()
@@ -264,6 +296,21 @@ namespace UserInterfaceAsteroids
             return barHeartPictureBox;
         }
 
+        private PictureBox createPictureBox(PictureBox picture, List<PictureBox> list)
+        {
+            PictureBox newPictureBox = new PictureBox();
+            Bitmap tempBitmap = new Bitmap(picture.Image);
+            newPictureBox.Image = tempBitmap;
+            newPictureBox.Visible = true;
+            newPictureBox.BackColor = Color.Transparent;
+            newPictureBox.BackgroundImage = null;
+            newPictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
+            newPictureBox.Size = picture.Size;
+            this.Controls.Add(newPictureBox);
+            list.Add(newPictureBox);
+            return newPictureBox;
+        }
+
         private void CheckSpaceshipAsteroidsIntersect()
         {
          
@@ -285,6 +332,29 @@ namespace UserInterfaceAsteroids
                 }
             
 
+        }
+
+        private void CheckSpaceshipAndHeartIntersect()
+        {
+            foreach (PictureBox heart in CollectableHeartsList)
+            {
+                if (Spaceship.Bounds.IntersectsWith(heart.Bounds))
+                {
+                    CollectableHeartsList.Remove(heart);
+                    heart.Visible = false;
+                    AddBarHeart();
+                    Logic.GetLives++;
+                    return;
+                }
+            }
+
+        }
+
+        private void AddBarHeart()
+        {
+            PictureBox BarHeart = createBarHeart();
+            
+            BarHeart.Location = new Point(HeartsBarList[HeartsBarList.Count-2].Location.X+BarHeart.Width, HeartsBarList[HeartsBarList.Count-2].Location.Y);
         }
 
         private void HeartLost()
