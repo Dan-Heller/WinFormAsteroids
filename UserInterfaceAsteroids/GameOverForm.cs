@@ -21,9 +21,9 @@ namespace UserInterfaceAsteroids
         {
             InitializeComponent();
             this.StartPosition = FormStartPosition.CenterScreen;
-            //SetGameOverText();
             ShowScore(LogicReference.GetScore);
             this.KeyDown += new KeyEventHandler(KeyPressed);
+            System.Windows.Forms.Cursor.Show();
         }
 
         private void SetGameOverText()
@@ -63,10 +63,8 @@ namespace UserInterfaceAsteroids
         {
             public CustomTextBox()
             {
-                
                 this.SetStyle(ControlStyles.SupportsTransparentBackColor, true);
                 this.BackColor = Color.Transparent;
-
             }
         }
 
@@ -77,7 +75,5 @@ namespace UserInterfaceAsteroids
                 return this.PressedKey;
             }
         }
-
-      
     }
 }

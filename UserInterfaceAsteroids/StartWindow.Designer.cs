@@ -51,6 +51,7 @@ namespace UserInterfaceAsteroids
             this.BackgroundImage = global::UserInterfaceAsteroids.Properties.Resources.canvas;
             this.ClientSize = new System.Drawing.Size(1084, 721);
             this.Controls.Add(this.pictureBox1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "StartWindow";
             this.Text = "StartWindow";
             this.Load += new System.EventHandler(this.StartWindow_Load);

@@ -164,6 +164,7 @@ namespace UserInterfaceAsteroids
             this.Controls.Add(this.lasershot);
             this.Controls.Add(this.Spaceship);
             this.DoubleBuffered = true;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.Name = "Form1";
             this.Text = "Form1";

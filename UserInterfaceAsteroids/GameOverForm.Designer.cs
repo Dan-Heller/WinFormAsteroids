@@ -93,6 +93,7 @@ namespace UserInterfaceAsteroids
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.Score);
             this.Controls.Add(this.GameOver);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "GameOverForm";
             this.Text = "GameOverForm";
             this.TransparencyKey = System.Drawing.Color.White;

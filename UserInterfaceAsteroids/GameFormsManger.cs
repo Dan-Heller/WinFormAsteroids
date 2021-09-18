@@ -38,7 +38,5 @@ namespace UserInterfaceAsteroids
            }
            while(EndForm.GetPressedKey == Keys.Enter);
        }
-
-      
     }
 }
